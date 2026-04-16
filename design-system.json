@@ -1,0 +1,68 @@
+{
+  "name": "Slice of Heaven",
+  "mode": "dark",
+  "colors": {
+    "background": "#0F0907",
+    "surface": "#1A110D",
+    "surfaceElevated": "#241712",
+    "border": "#3A201A",
+    "primary": "#DC2626",
+    "primaryHover": "#EF4444",
+    "onPrimary": "#FFF8F1",
+    "accent": "#D4A24A",
+    "accentHover": "#E8B864",
+    "onAccent": "#1A0E08",
+    "foreground": "#F5E9DC",
+    "muted": "#A89684",
+    "destructive": "#B91C1C",
+    "ring": "#D4A24A"
+  },
+  "fonts": {
+    "heading": "'Playfair Display SC', 'Playfair Display', Georgia, serif",
+    "body": "'Karla', system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+    "import": "https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700&display=swap"
+  },
+  "scale": {
+    "12": "0.75rem",
+    "14": "0.875rem",
+    "16": "1rem",
+    "18": "1.125rem",
+    "20": "1.25rem",
+    "24": "1.5rem",
+    "32": "2rem",
+    "40": "2.5rem",
+    "56": "3.5rem",
+    "72": "4.5rem"
+  },
+  "spacing": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem",
+    "24": "6rem",
+    "32": "8rem"
+  },
+  "radius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "16px",
+    "xl": "24px",
+    "pill": "999px"
+  },
+  "shadow": {
+    "sm": "0 2px 6px rgba(0,0,0,0.4)",
+    "md": "0 8px 24px rgba(0,0,0,0.5)",
+    "lg": "0 20px 60px rgba(0,0,0,0.6)",
+    "glow": "0 0 32px rgba(212,162,74,0.3)"
+  },
+  "motion": {
+    "fast": "150ms",
+    "base": "250ms",
+    "slow": "400ms",
+    "ease": "cubic-bezier(0.16, 1, 0.3, 1)"
+  }
+}

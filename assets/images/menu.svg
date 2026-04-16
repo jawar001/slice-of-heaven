@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Overhead view of four artisan pizzas on a checkered tablecloth">
+  <defs>
+    <pattern id="check" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect width="80" height="80" fill="#7B1010"/>
+      <rect x="0" y="0" width="40" height="40" fill="#F5E9DC"/>
+      <rect x="40" y="40" width="40" height="40" fill="#F5E9DC"/>
+    </pattern>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
+    </radialGradient>
+    <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F4D9A8"/>
+      <stop offset="80%" stop-color="#C68A3F"/>
+      <stop offset="100%" stop-color="#6E3F18"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#check)"/>
+  <g opacity="0.9">
+    <circle cx="320" cy="260" r="180" fill="#2A1810"/>
+    <circle cx="320" cy="260" r="170" fill="url(#crust)"/>
+    <circle cx="320" cy="260" r="138" fill="#A8201F"/>
+    <g fill="#F5E9DC"><circle cx="290" cy="240" r="14"/><circle cx="350" cy="260" r="12"/><circle cx="310" cy="290" r="13"/></g>
+    <g fill="#3F6B2A"><circle cx="280" cy="280" r="6"/><circle cx="360" cy="240" r="5"/><circle cx="330" cy="220" r="6"/></g>
+  </g>
+  <g opacity="0.9">
+    <circle cx="880" cy="240" r="180" fill="#2A1810"/>
+    <circle cx="880" cy="240" r="170" fill="url(#crust)"/>
+    <circle cx="880" cy="240" r="138" fill="#C7472E"/>
+    <g fill="#5A1010"><circle cx="850" cy="220" r="12"/><circle cx="910" cy="245" r="14"/><circle cx="870" cy="270" r="11"/><circle cx="900" cy="200" r="10"/><circle cx="845" cy="270" r="10"/></g>
+  </g>
+  <g opacity="0.9">
+    <circle cx="320" cy="560" r="180" fill="#2A1810"/>
+    <circle cx="320" cy="560" r="170" fill="url(#crust)"/>
+    <circle cx="320" cy="560" r="138" fill="#A8201F"/>
+    <g fill="#3F6B2A"><circle cx="290" cy="540" r="9"/><circle cx="345" cy="555" r="8"/><circle cx="310" cy="585" r="9"/><circle cx="350" cy="595" r="7"/></g>
+    <g fill="#1F3F1A"><circle cx="280" cy="575" r="6"/><circle cx="355" cy="535" r="5"/></g>
+  </g>
+  <g opacity="0.9">
+    <circle cx="880" cy="560" r="180" fill="#2A1810"/>
+    <circle cx="880" cy="560" r="170" fill="url(#crust)"/>
+    <circle cx="880" cy="560" r="138" fill="#9C1A1A"/>
+    <g fill="#F5E9DC"><circle cx="850" cy="540" r="12"/><circle cx="910" cy="555" r="11"/></g>
+    <g fill="#E8B864"><circle cx="870" cy="580" r="9"/><circle cx="900" cy="590" r="8"/><circle cx="845" cy="570" r="7"/></g>
+  </g>
+  <g fill="#3F6B2A" opacity="0.85">
+    <ellipse cx="600" cy="400" rx="14" ry="6" transform="rotate(25 600 400)"/>
+    <ellipse cx="630" cy="430" rx="10" ry="5" transform="rotate(-15 630 430)"/>
+    <ellipse cx="580" cy="450" rx="12" ry="6" transform="rotate(40 580 450)"/>
+  </g>
+  <g>
+    <circle cx="600" cy="710" r="38" fill="#1A110D"/>
+    <circle cx="600" cy="710" r="32" fill="#D4A24A" opacity="0.85"/>
+  </g>
+  <rect width="1200" height="800" fill="url(#vignette)"/>
+</svg>

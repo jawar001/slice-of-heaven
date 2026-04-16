@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+.vite/
+
+# Secrets — contains STITCH_API_KEY etc.
+.claude/settings.local.json

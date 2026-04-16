@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Slice of Heaven — wood-fired pizza, warm hospitality, rustic Italian soul.">
+<title>Slice of Heaven — Wood-fired Pizza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0907;
+  --surface: #1A110D;
+  --surface-2: #241712;
+  --border: #3A201A;
+  --primary: #DC2626;
+  --primary-hover: #EF4444;
+  --on-primary: #FFF8F1;
+  --accent: #D4A24A;
+  --accent-hover: #E8B864;
+  --on-accent: #1A0E08;
+  --fg: #F5E9DC;
+  --muted: #A89684;
+  --ring: #D4A24A;
+
+  --font-h: 'Playfair Display SC', 'Playfair Display', Georgia, serif;
+  --font-b: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  --sh-sm: 0 2px 6px rgba(0,0,0,0.4);
+  --sh-md: 0 8px 24px rgba(0,0,0,0.5);
+  --sh-lg: 0 20px 60px rgba(0,0,0,0.6);
+  --glow: 0 0 32px rgba(212,162,74,0.3);
+
+  --t-fast: 150ms;
+  --t-base: 250ms;
+  --t-slow: 400ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container: 1200px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; border-radius: var(--r-sm); }
+
+h1, h2, h3 { font-family: var(--font-h); font-weight: 700; letter-spacing: 0.02em; line-height: 1.15; margin: 0; color: var(--fg); }
+h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
+h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 1rem; }
+
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 1.25rem; }
+@media (min-width: 1024px) { .container { padding: 0 2rem; } }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-weight: 600; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 0; border-radius: var(--r-pill);
+  transition: transform var(--t-base) var(--ease), background var(--t-base), box-shadow var(--t-base);
+  min-height: 48px; min-width: 48px;
+}
+.btn-primary { background: var(--primary); color: var(--on-primary); box-shadow: var(--sh-md); }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--sh-lg); }
+.btn-ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+.btn-ghost:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-2px); }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-b);
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(15, 9, 7, 0.78);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-base), background var(--t-base);
+}
+.nav.scrolled { border-bottom-color: var(--border); background: rgba(15, 9, 7, 0.92); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.brand {
+  font-family: var(--font-h); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em;
+  color: var(--fg); display: flex; align-items: center; gap: 0.5rem;
+}
+.brand-mark { width: 32px; height: 32px; }
+.nav-links { display: none; gap: 2rem; align-items: center; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color var(--t-fast); }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta { display: none; }
+.nav-toggle {
+  background: transparent; border: 0; color: var(--fg); padding: 0.5rem;
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;
+}
+.nav-toggle svg { width: 28px; height: 28px; }
+@media (min-width: 1024px) {
+  .nav-links { display: flex; }
+  .nav-cta { display: inline-flex; }
+  .nav-toggle { display: none; }
+}
+.mobile-menu {
+  position: fixed; inset: 72px 0 0 0; z-index: 49;
+  background: var(--bg);
+  padding: 2rem 1.25rem;
+  transform: translateX(100%);
+  transition: transform var(--t-slow) var(--ease);
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a { font-family: var(--font-h); font-size: 1.5rem; color: var(--fg); padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+@media (min-width: 1024px) { .mobile-menu { display: none; } }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100dvh;
+  display: flex; align-items: center;
+  padding: 8rem 0 4rem;
+  overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 30%, rgba(212,162,74,0.18), transparent 70%),
+    radial-gradient(40% 40% at 90% 80%, rgba(220,38,38,0.25), transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; gap: 3rem; align-items: center;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: 1.1fr 1fr; gap: 4rem; }
+}
+.hero-copy h1 span { color: var(--accent); font-style: italic; }
+.hero-copy p.lead { font-size: 1.15rem; color: var(--muted); max-width: 36ch; margin: 1.5rem 0 2rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.hero-art {
+  position: relative; aspect-ratio: 1 / 1; max-width: 540px; margin: 0 auto;
+}
+.hero-art img { border-radius: var(--r-pill); box-shadow: var(--sh-lg), var(--glow); animation: floaty 6s ease-in-out infinite; }
+.hero-badge {
+  position: absolute; bottom: 8%; left: -4%;
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 0.75rem 1.25rem; border-radius: var(--r-pill);
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+  box-shadow: var(--sh-md);
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ---------- sections shared ---------- */
+section { padding: 6rem 0; position: relative; }
+@media (min-width: 1024px) { section { padding: 8rem 0; } }
+.section-head { text-align: center; max-width: 640px; margin: 0 auto 4rem; }
+.section-head p { color: var(--muted); margin-top: 1rem; }
+
+/* ---------- about ---------- */
+.about { background: var(--surface); }
+.about-grid {
+  display: grid; gap: 2rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) { .about-grid { grid-template-columns: repeat(3, 1fr); } }
+.about-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 2.5rem 2rem; border-radius: var(--r-lg);
+  transition: transform var(--t-base) var(--ease), border-color var(--t-base);
+}
+.about-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+.about-icon {
+  width: 56px; height: 56px; border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem; color: var(--on-accent);
+}
+.about-icon svg { width: 28px; height: 28px; }
+.about-card h3 { margin-bottom: 0.75rem; }
+.about-card p { color: var(--muted); margin: 0; }
+
+/* ---------- menu ---------- */
+.menu-grid {
+  display: grid; gap: 2.5rem; align-items: center;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) { .menu-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+.menu-image { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-lg); border: 1px solid var(--border); }
+.menu-list { display: flex; flex-direction: column; gap: 1.25rem; }
+.menu-item {
+  display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 1rem;
+  padding: 1.25rem 0; border-bottom: 1px dashed var(--border);
+}
+.menu-item h3 { font-family: var(--font-h); font-size: 1.25rem; }
+.menu-item .price { font-family: var(--font-h); font-size: 1.25rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+.menu-item p { grid-column: 1 / -1; color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+/* ---------- reviews ---------- */
+.reviews { background: var(--surface); }
+.review-grid {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .review-grid { grid-template-columns: repeat(3, 1fr); } }
+.review-card {
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 2rem; border-radius: var(--r-lg);
+  display: flex; flex-direction: column; gap: 1.25rem;
+  transition: transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base);
+}
+.review-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--sh-md); }
+.stars { color: var(--accent); font-size: 1.1rem; letter-spacing: 0.15em; }
+.review-card blockquote { margin: 0; font-style: italic; color: var(--fg); font-size: 1rem; line-height: 1.6; }
+.review-author { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
+.avatar {
+  width: 44px; height: 44px; border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-h); font-weight: 700; color: var(--on-accent);
+}
+.review-author .name { font-weight: 600; }
+.review-author .meta { color: var(--muted); font-size: 0.85rem; }
+
+/* ---------- visit ---------- */
+.visit-grid {
+  display: grid; gap: 2rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) { .visit-grid { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; } }
+.visit-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.visit-row { display: grid; grid-template-columns: 48px 1fr; gap: 1rem; align-items: start; }
+.visit-row .icon {
+  width: 44px; height: 44px; border-radius: var(--r-md);
+  background: var(--surface-2); border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.visit-row .icon svg { width: 22px; height: 22px; }
+.visit-row h3 { font-size: 1.05rem; margin-bottom: 0.25rem; font-family: var(--font-b); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); }
+.visit-row p { color: var(--fg); margin: 0; }
+.visit-row p.muted { color: var(--muted); font-size: 0.95rem; }
+.visit-map {
+  position: relative; aspect-ratio: 4 / 5; max-height: 540px;
+  border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 50% 40%, rgba(220,38,38,0.18), transparent 60%),
+    repeating-linear-gradient(45deg, var(--surface-2) 0 12px, var(--surface) 12px 24px);
+  display: flex; align-items: center; justify-content: center;
+}
+.visit-map .pin {
+  width: 64px; height: 64px; border-radius: var(--r-pill);
+  background: var(--primary); color: var(--on-primary);
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 12px rgba(220,38,38,0.18), 0 0 0 28px rgba(220,38,38,0.08);
+  animation: pulse 2.4s ease-out infinite;
+}
+.visit-map .pin svg { width: 32px; height: 32px; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(220,38,38,0.5), 0 0 0 0 rgba(220,38,38,0.3); }
+  100% { box-shadow: 0 0 0 28px rgba(220,38,38,0), 0 0 0 56px rgba(220,38,38,0); }
+}
+
+/* ---------- footer ---------- */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 4rem 0 2rem;
+}
+.footer-grid {
+  display: grid; gap: 2.5rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 3rem;
+}
+@media (min-width: 640px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; } }
+.footer h4 { font-family: var(--font-b); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.footer p, .footer li { color: var(--muted); }
+.footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer a:hover { color: var(--accent); }
+.footer-tag { font-family: var(--font-h); font-size: 1.5rem; color: var(--fg); margin-bottom: 0.75rem; }
+.footer-bottom {
+  border-top: 1px solid var(--border); padding-top: 2rem;
+  display: flex; flex-direction: column; gap: 0.75rem; align-items: center;
+  text-align: center; color: var(--muted); font-size: 0.85rem;
+}
+.socials { display: flex; gap: 0.75rem; }
+.socials a {
+  width: 40px; height: 40px; border-radius: var(--r-pill);
+  background: var(--surface-2); border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.socials a:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.socials svg { width: 18px; height: 18px; }
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal[data-delay="1"] { transition-delay: 80ms; }
+.reveal[data-delay="2"] { transition-delay: 160ms; }
+.reveal[data-delay="3"] { transition-delay: 240ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .hero-art img { animation: none; }
+  .visit-map .pin { animation: none; box-shadow: 0 0 0 12px rgba(220,38,38,0.18); }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Slice of Heaven home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="#D4A24A"/>
+        <path d="M16 2 L29 24 L3 24 Z" fill="#1A0E08"/>
+        <circle cx="13" cy="18" r="2" fill="#DC2626"/>
+        <circle cx="19" cy="16" r="2" fill="#DC2626"/>
+        <circle cx="16" cy="20" r="1.5" fill="#3F6B2A"/>
+      </svg>
+      Slice of Heaven
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit Us</a>
+    </nav>
+    <a href="#visit" class="btn btn-primary nav-cta">Reserve a table</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="#about">About</a>
+  <a href="#menu">Menu</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#visit">Visit Us</a>
+  <a href="#visit" class="btn btn-primary" style="align-self:flex-start;margin-top:1rem;">Reserve a table</a>
+</div>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Wood-fired since 2009</span>
+      <h1 id="hero-title">A slice of <span>heaven</span><br>in every bite.</h1>
+      <p class="lead">Hand-stretched dough, San Marzano tomatoes, and a 900&deg;F oven. Old-world recipes, served warm by people who care.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary">See the menu</a>
+        <a href="#visit" class="btn btn-ghost">Find us tonight</a>
+      </div>
+    </div>
+    <div class="hero-art reveal" data-delay="2">
+      <img src="assets/images/hero.svg" alt="Steaming wood-fired margherita pizza on a rustic wooden board" width="540" height="540" loading="eager">
+      <span class="hero-badge">Open till late</span>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about" aria-labelledby="about-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">Our story</span>
+      <h2 id="about-title">Three generations, one oven.</h2>
+      <p>What started as nonna's Sunday supper became a neighborhood ritual. We knead by hand, sauce by taste, and serve like family.</p>
+    </header>
+    <div class="about-grid">
+      <article class="about-card reveal">
+        <span class="about-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 C7 8 7 14 12 22 C17 14 17 8 12 2 Z"/></svg>
+        </span>
+        <h3>72-hour dough</h3>
+        <p>Slow-fermented for a crust that's airy inside, blistered outside, and easy on the stomach.</p>
+      </article>
+      <article class="about-card reveal" data-delay="1">
+        <span class="about-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12 C3 7 7 3 12 3 C17 3 21 7 21 12"/><path d="M3 12 v6 a2 2 0 0 0 2 2 h14 a2 2 0 0 0 2 -2 v-6"/><path d="M8 7 v3 M12 5 v3 M16 7 v3"/></svg>
+        </span>
+        <h3>Wood-fired only</h3>
+        <p>Oak and apple wood. 90 seconds at 900&deg;F. The smoke is the secret.</p>
+      </article>
+      <article class="about-card reveal" data-delay="2">
+        <span class="about-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12 a8 8 0 1 1 -16 0 a8 8 0 0 1 16 0 z"/><path d="M12 8 v4 l3 2"/></svg>
+        </span>
+        <h3>Sourced near</h3>
+        <p>Mozzarella from down the road, basil from the back garden, tomatoes from one farm only.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="menu" aria-labelledby="menu-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">From our oven</span>
+      <h2 id="menu-title">The classics &amp; the bold.</h2>
+    </header>
+    <div class="menu-grid">
+      <div class="menu-image reveal">
+        <img src="assets/images/menu.svg" alt="Overhead view of four artisan pizzas on a checkered tablecloth" width="1200" height="800" loading="lazy">
+      </div>
+      <div class="menu-list reveal" data-delay="1">
+        <article class="menu-item">
+          <h3>Margherita d'Oro</h3>
+          <span class="price">$16</span>
+          <p>San Marzano tomato, fior di latte, basil, finishing oil.</p>
+        </article>
+        <article class="menu-item">
+          <h3>Diavola</h3>
+          <span class="price">$19</span>
+          <p>Spicy soppressata, calabrian chili honey, smoked mozzarella.</p>
+        </article>
+        <article class="menu-item">
+          <h3>Funghi Selvatici</h3>
+          <span class="price">$20</span>
+          <p>Wild mushrooms, taleggio, garlic confit, thyme, truffle oil.</p>
+        </article>
+        <article class="menu-item">
+          <h3>Quattro Formaggi</h3>
+          <span class="price">$21</span>
+          <p>Mozzarella, gorgonzola, parmesan, ricotta, cracked pepper.</p>
+        </article>
+        <article class="menu-item">
+          <h3>Bianca al Tartufo</h3>
+          <span class="price">$23</span>
+          <p>White base, fontina, prosciutto cotto, arugula, shaved truffle.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">Loved by the neighborhood</span>
+      <h2 id="reviews-title">Kind words, warm bellies.</h2>
+    </header>
+    <div class="review-grid">
+      <article class="review-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The crust alone is worth the trip. Best pizza I've had outside of Naples — and I've been three times this year."</blockquote>
+        <div class="review-author">
+          <span class="avatar" aria-hidden="true">M</span>
+          <div><div class="name">Marco V.</div><div class="meta">Regular since '14</div></div>
+        </div>
+      </article>
+      <article class="review-card reveal" data-delay="1">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"They remember our names, our orders, and our kid's birthday. The Diavola is dangerous in the best way."</blockquote>
+        <div class="review-author">
+          <span class="avatar" aria-hidden="true">S</span>
+          <div><div class="name">Sofia R.</div><div class="meta">Friday-night family</div></div>
+        </div>
+      </article>
+      <article class="review-card reveal" data-delay="2">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Cozy, warm, and the wine list punches way above its weight. The Funghi Selvatici stole the night."</blockquote>
+        <div class="review-author">
+          <span class="avatar" aria-hidden="true">J</span>
+          <div><div class="name">James O.</div><div class="meta">First visit, won't be the last</div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="visit" aria-labelledby="visit-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow">Stop by</span>
+      <h2 id="visit-title">A warm table is waiting.</h2>
+    </header>
+    <div class="visit-grid">
+      <div class="visit-info reveal">
+        <div class="visit-row">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div>
+            <h3>Find us</h3>
+            <p>248 Greenbrier Lane</p>
+            <p class="muted">Old Town, on the corner of 4th &amp; Vine</p>
+          </div>
+        </div>
+        <div class="visit-row">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+          <div>
+            <h3>Open hours</h3>
+            <p>Tue&ndash;Thu&nbsp;&middot;&nbsp;5pm&ndash;10pm</p>
+            <p>Fri&ndash;Sat&nbsp;&middot;&nbsp;5pm&ndash;midnight</p>
+            <p class="muted">Closed Sundays &amp; Mondays</p>
+          </div>
+        </div>
+        <div class="visit-row">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div>
+            <h3>Reservations</h3>
+            <p>(555) 014-7821</p>
+            <p class="muted">Walk-ins welcome at the bar</p>
+          </div>
+        </div>
+        <div style="margin-top:0.5rem">
+          <a href="tel:+15550147821" class="btn btn-primary">Call to reserve</a>
+        </div>
+      </div>
+      <div class="visit-map reveal" data-delay="1" aria-label="Map showing restaurant location">
+        <span class="pin" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">Slice of Heaven</div>
+        <p>Wood-fired pizza, warm hospitality, rustic Italian soul. Served in Old Town since 2009.</p>
+        <div class="socials" style="margin-top:1.25rem">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.4-2 2-2h2V2h-3c-3 0-5 2-5 5v3H6v4h3v8h4z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3v3a4 4 0 0 0 4 4v3a7 7 0 0 1-4-1.3V16a5 5 0 1 1-5-5v3a2 2 0 1 0 2 2V3h3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li>248 Greenbrier Lane</li>
+          <li>Old Town, 4th &amp; Vine</li>
+          <li>Tue&ndash;Sat, 5pm onward</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li><a href="tel:+15550147821">(555) 014-7821</a></li>
+          <li><a href="mailto:ciao@sliceofheaven.example">ciao@sliceofheaven.example</a></li>
+          <li><a href="#visit">Reservations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Slice of Heaven Pizzeria</span>
+      <span>Made with flour, fire, and a little love.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+
+  // sticky nav state
+  var onScroll = function () {
+    if (window.scrollY > 8) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // mobile menu
+  toggle.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+  });
+  menu.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // reveal-on-scroll
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>
