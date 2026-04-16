@@ -106,4 +106,4 @@ slice-of-heaven/
 
 ---
 
-_Made with 🍕 and Claude Code._
+_Made with 🍕 and Claude Code by [Shahajada Jawar](https://github.com/jawar001)._
